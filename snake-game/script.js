@@ -28,39 +28,52 @@ function gameLoop() {
 }
 
 function update() {
-  const head = { x: snake[0].x, y: snake[0].y };
+  // Calculate the new head position BEFORE collision check
+  let newHead = { 
+    x: snake[0].x, 
+    y: snake[0].y 
+  };
 
   switch (direction) {
-    case 'up': head.y--; break;
-    case 'down': head.y++; break;
-    case 'left': head.x--; break;
-    case 'right': head.x++; break;
+    case 'up': newHead.y--; break;
+    case 'down': newHead.y++; break;
+    case 'left': newHead.x--; break;
+    case 'right': newHead.x++; break;
   }
 
-  if (head.x < 0 || head.x >= canvas.width / gridSize ||
-    head.y < 0 || head.y >= canvas.height / gridSize ||
-    checkCollision(head, snake)) {
+  // Check for collisions using the NEW head position
+  if (newHead.x < 0 || newHead.x >= canvas.width / gridSize ||
+      newHead.y < 0 || newHead.y >= canvas.height / gridSize ||
+      checkCollision(newHead, snake)) {
+    
     gameOver = true;
+
+    // High score logic
     if (score > highScore) {
       highScore = score;
       localStorage.setItem('highScore', highScore);
       highScoreElement.textContent = highScore;
     }
+
+    // "Play Again" button logic
     setTimeout(() => {
       startGameBtn.textContent = 'Play Again';
       startGameBtn.style.display = 'block';
     }, 500); 
-    return;
+
+    return; // Exit the update function if game over
   }
 
-  snake.unshift(head);
+  // No collision: Add the new head to the snake
+  snake.unshift(newHead); 
 
-  if (head.x === food.x && head.y === food.y) {
+  // Food consumption logic
+  if (newHead.x === food.x && newHead.y === food.y) {
     score++;
     scoreElement.textContent = score;
-    generateFood();
+    generateFood(); 
   } else {
-    snake.pop();
+    snake.pop(); // Remove tail segment if no food is eaten
   }
 }
 
