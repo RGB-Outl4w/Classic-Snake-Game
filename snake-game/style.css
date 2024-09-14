@@ -39,9 +39,9 @@ body {
     align-items: center;
   }
   
-  #highScore::before {   
-    content: '👑 ';          /* Add crown emoji before high score */
-    color: goldenrod;      
+  #highScore::before {
+    content: '👑 ';
+    color: goldenrod;
   }
   
   #highScore {
