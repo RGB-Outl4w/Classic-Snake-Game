@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Classic Snake</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="gameContainer">
+    <div id="scoreboard">
+      <div>Score: <span id="score">0</span></div> 
+      <div id="highScoreContainer">High Score: <span id="highScore">0</span></div>
+    </div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button id="startGameBtn">Start Game</button>
+  </div>
+
+  <div id="settingsModal">
+    <h2>Game Settings</h2>
+    <label for="gridSize">Grid Size:</label>
+    <select id="gridSize">
+      <option value="10">Small</option>
+      <option value="20" selected>Medium</option>
+      <option value="30">Large</option>
+    </select><br><br>
+
+    <button id="saveSettings">Save</button>
+    <span id="closeSettings">✕</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
